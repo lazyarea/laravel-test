@@ -1,6 +1,10 @@
 <?php
 namespace App\Libs;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
+use Symfony\Component\DomCrawler\Crawler;
+
 class Util
 {
 
@@ -36,7 +40,7 @@ class Util
 
     public static function get_text($url = "", $method = "GET", $cssSelector = "body")
     {
-        $client = new GuzzleHttp\Client();
+        $client = new Client();
         try {
             $res = $client->request($method, $url);
         } catch (Exception $e){
@@ -44,7 +48,6 @@ class Util
             return false;
         }
         $html = (string)$res->getBody()->getContents();
-
         $crawler = new Crawler($html);
         try{
             return $crawler->filter($cssSelector)->text();
