@@ -1,0 +1,1 @@
+{"prod":{"url":"http:\/\/example.com","path":[{"name":"\/","css":["body","body > p"]},{"name":"\/foo","css":["body","body > p"]}]},"dev":{"url":"http:\/\/example.net","path":[{"name":"\/","css":["body","body > p"]},{"name":"\/foo","css":["body","body > p"]}]}}
