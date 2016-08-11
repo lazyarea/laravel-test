@@ -57,12 +57,50 @@ class Util
         }
     }
 
+
+    public static function get_css_contents( $html = "", $cssSelector = "body")
+    {
+        $crawler = new Crawler( (string)$html );
+        print_r($html);
+        \Log::debug($html);
+        \Log::debug( $crawler->filter($cssSelector)->text() );
+        try{
+            return $crawler->filter($cssSelector)->text();
+        }catch(Exception $e){
+            \Log::debug($e->getMessage());
+            return $e->getMessage();
+        }
+    }
+
+    public static function get_html_contents($url = "", $method = "GET")
+    {
+        $client = new \GuzzleHttp\Client();
+        try {
+            $res = $client->request($method, $url);
+        } catch (Exception $e){
+            \Log::debug($e->getMessage());
+            return $e->getMessage();
+        }
+        return (string)$res->getBody()->getContents();
+    }
+
+
     /**
      * @param string $fname
      */
     public function load_json($fname = 'scenario')
     {
         $json = File::get('database/'.$fname.'.json');
+        return json_decode($json);
+    }
+
+
+    /**
+     * @param string $fpath
+     */
+    public static function load_json_file($fpath = 'scenario')
+    {
+        $json = \File::get('database/'.$fpath.'.json');
         return json_decode($json);
     }
 
